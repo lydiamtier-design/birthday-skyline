@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0d3446">
+<title>生日星空屏保</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div id="stage">
+  <div id="blur"></div>
+  <div id="frame">
+    <div id="parallax"><div id="photo"></div></div>
+    <div id="titleGlow" class="glow"></div>
+    <div id="sunGlow" class="glow"></div>
+    <div id="title">
+      <div class="line" id="line1"></div>
+      <div class="line" id="line2"></div>
+    </div>
+    <div id="grass"><svg id="grassSvg" viewBox="0 0 1000 220" preserveAspectRatio="none"></svg></div>
+    <div id="grassShade"></div>
+    <div id="vignette"></div>
+  </div>
+</div>
+<canvas id="fx"></canvas>
+<div id="hint">轻触画面 · 撒一把星星</div>
+<div id="ui">
+  <button id="btnFull" type="button">全屏播放</button>
+  <button id="btnMusic" type="button">音乐 关</button>
+</div>
+<div id="rotate">横过来放，画面更完整</div>
+<div id="toast"></div>
+
+<script src="config.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+/* =========================================================
+   生日星空屏保 · 样式
+   ========================================================= */
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; background: #061923; overflow: hidden; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif;
+  color: #fff;
+  -webkit-user-select: none; user-select: none;
+  touch-action: none; -webkit-tap-highlight-color: transparent;
+}
+
+/* 舞台与宽幅画面：保持 2.333:1，居中letterbox */
+#stage { position: fixed; inset: 0; overflow: hidden; opacity: 0; transition: opacity 1.8s ease; }
+body.ready #stage { opacity: 1; }
+#blur {
+  position: absolute; inset: -9%;
+  background-position: center; background-size: cover; background-repeat: no-repeat;
+  filter: blur(46px) saturate(1.2) brightness(.46); transform: scale(1.1);
+}
+#frame {
+  position: absolute; overflow: hidden;
+  box-shadow: 0 12px 90px rgba(0,0,0,.45); isolation: isolate;
+}
+#parallax {
+  position: absolute; inset: -2.5%;
+  transform: translate3d(var(--px,0px), var(--py,0px), 0);
+  transition: transform .9s cubic-bezier(.2,.7,.2,1);
+}
+#photo {
+  position: absolute; inset: 0;
+  background-position: center; background-repeat: no-repeat; background-size: 100% 100%;
+  animation: breathe 16s ease-in-out infinite alternate; transform-origin: 50% 62%;
+}
+@keyframes breathe { from { transform: scale(1); } to { transform: scale(1.022); } }
+
+/* 光晕 */
+.glow { position: absolute; pointer-events: none; mix-blend-mode: screen; border-radius: 50%; }
+#titleGlow {
+  left: 4%; top: 0; width: 48%; height: 56%;
+  background: radial-gradient(ellipse at 40% 44%, rgba(255,248,220,.30), rgba(255,235,180,.10) 45%, transparent 72%);
+  animation: titlePulse 7s ease-in-out infinite;
+}
+@keyframes titlePulse { 0%,100% { opacity:.3; transform:scale(.97); } 50% { opacity:.75; transform:scale(1.05); } }
+#sunGlow {
+  left: -6%; top: 46%; width: 44%; height: 62%;
+  background: radial-gradient(ellipse, rgba(255,214,120,.32), rgba(255,190,90,.10) 42%, transparent 70%);
+  animation: sunPulse 11s ease-in-out infinite;
+}
+@keyframes sunPulse { 0%,100% { opacity:.4; transform:scale(.95); } 50% { opacity:.85; transform:scale(1.08); } }
+
+/* 标题文字层 */
+#title {
+  position: absolute; left: 7%; top: 7%; z-index: 3;
+  font-weight: 700; line-height: 1.15;
+  letter-spacing: .04em;
+  text-shadow: 0 2px 18px rgba(255,225,150,.45), 0 4px 40px rgba(0,0,0,.25);
+  pointer-events: none;
+  animation: titleIn 2s ease both;
+}
+#title .line { font-size: clamp(28px, 6.6vw, 108px); }
+#title .line + .line { font-size: clamp(34px, 8vw, 128px); margin-top: .08em; }
+@keyframes titleIn { from { opacity:0; transform: translateY(18px); filter: blur(6px); } to { opacity:1; transform:none; filter:none; } }
+
+/* 前景草叶 */
+#grass { position: absolute; left:0; bottom:0; width:100%; height:24%; pointer-events:none; z-index:4; opacity:.9; }
+#grass svg { display:block; width:100%; height:100%; }
+.blade { transform-box: fill-box; transform-origin: bottom center; animation: sway var(--d,5s) ease-in-out infinite alternate; animation-delay: var(--delay,0s); }
+@keyframes sway { from { transform: rotate(-4deg); } to { transform: rotate(5deg); } }
+#grassShade { position:absolute; left:0; bottom:0; width:100%; height:13%; background:linear-gradient(to top, rgba(7,26,5,.75), rgba(7,26,5,0)); pointer-events:none; }
+#vignette { position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse at 50% 55%, transparent 52%, rgba(4,22,30,.28) 100%); z-index:5; }
+
+/* 粒子画布 */
+#fx { position:fixed; inset:0; z-index:6; pointer-events:none; }
+
+/* 控件 */
+#ui {
+  position:fixed; z-index:12; left:50%; bottom:max(22px, env(safe-area-inset-bottom));
+  transform:translateX(-50%); display:flex; gap:10px; align-items:center;
+  padding:9px 12px; border-radius:999px;
+  background:rgba(8,28,38,.42); border:1px solid rgba(255,255,255,.16);
+  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  box-shadow:0 8px 30px rgba(0,0,0,.25);
+  transition:opacity .7s ease, transform .7s ease; white-space:nowrap;
+}
+#ui.dim { opacity:0; transform:translateX(-50%) translateY(12px); }
+button {
+  font:inherit; font-size:14px; letter-spacing:.04em; color:#fff;
+  background:rgba(255,255,255,.11); border:1px solid rgba(255,255,255,.18);
+  border-radius:999px; padding:8px 17px; cursor:pointer;
+  -webkit-appearance:none; appearance:none; transition:background .25s, transform .2s;
+}
+button:active { transform:scale(.94); background:rgba(255,255,255,.24); }
+button.on { background:rgba(255,214,130,.28); border-color:rgba(255,222,160,.55); }
+#hint {
+  position:fixed; z-index:11; left:0; right:0;
+  bottom:max(82px, calc(env(safe-area-inset-bottom) + 76px));
+  text-align:center; font-size:13px; letter-spacing:.22em;
+  color:rgba(255,255,255,.8); text-shadow:0 1px 12px rgba(0,0,0,.5);
+  pointer-events:none; animation:hintIn 1s 1.6s both, hintOut 1.4s 6s forwards;
+}
+@keyframes hintIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+@keyframes hintOut { to { opacity:0; } }
+#rotate {
+  position:fixed; z-index:13; left:50%; top:max(18px, env(safe-area-inset-top));
+  transform:translateX(-50%); font-size:12px; letter-spacing:.14em;
+  color:rgba(255,255,255,.72); background:rgba(8,28,38,.4);
+  padding:7px 16px; border-radius:999px; display:none; pointer-events:none;
+  backdrop-filter:blur(10px);
+}
+#toast {
+  position:fixed; z-index:14; left:50%; top:50%; transform:translate(-50%,-50%) scale(.96);
+  max-width:78vw; padding:16px 22px; border-radius:16px;
+  background:rgba(6,26,36,.88); border:1px solid rgba(255,255,255,.16);
+  font-size:14px; line-height:1.7; text-align:center; opacity:0; pointer-events:none;
+  transition:opacity .4s, transform .4s; backdrop-filter:blur(12px);
+}
+#toast.show { opacity:1; transform:translate(-50%,-50%) scale(1); }
+@media (orientation:portrait) { #rotate { display:block; } }
+@media (prefers-reduced-motion:reduce) { #photo, .blade, #title, #hint { animation:none !important; } }
