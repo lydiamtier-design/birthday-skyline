@@ -1,5 +1,10 @@
 # 生日星空屏保 🌌
 
+> **👉 [点这里在线预览效果](https://lydiamtier-design.github.io/birthday-skyline/)（手机 / 平板浏览器直接打开，可全屏）**
+>
+> 想换成自己的祝福？在链接后面加参数：`?name=小明&wish=生日快乐`
+> [看示例](https://lydiamtier-design.github.io/birthday-skyline/?name=%E5%B0%8F%E6%98%8E&wish=%E7%94%9F%E6%97%A5%E5%BF%AB%E4%B9%90)
+
 一个可以在平板、手机、电脑上全屏播放的生日祝福动态屏。星空闪烁、流星划过、萤火虫从草地升起、前景草叶随风摆动，轻触画面还能撒一把星星；点开八音盒按钮会循环播放《生日快乐》。
 
 纯原生 HTML / CSS / JavaScript，**零依赖、零构建**，双击 `index.html` 就能用。
