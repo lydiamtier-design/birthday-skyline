@@ -108,6 +108,13 @@ button.on { background:rgba(255,214,130,.28); border-color:rgba(255,222,160,.55)
   padding:7px 16px; border-radius:999px; display:none; pointer-events:none;
   backdrop-filter:blur(10px);
 }
+#aigc-note {
+  position:fixed; z-index:10; right:14px; bottom:max(12px, env(safe-area-inset-bottom));
+  font-size:10px; letter-spacing:.08em; color:rgba(255,255,255,.48);
+  text-shadow:0 1px 6px rgba(0,0,0,.6); pointer-events:none;
+  opacity:0; animation:aigcFade 1s 3s forwards;
+}
+@keyframes aigcFade { to { opacity:1; } }
 #toast {
   position:fixed; z-index:14; left:50%; top:50%; transform:translate(-50%,-50%) scale(.96);
   max-width:78vw; padding:16px 22px; border-radius:16px;
